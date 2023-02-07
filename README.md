@@ -26,7 +26,7 @@ npm run lint
 
 ### demo
 
-![image](assets/demo.png)
+![image](src/assets/demo.png)
 
 ### Customize configuration
 
