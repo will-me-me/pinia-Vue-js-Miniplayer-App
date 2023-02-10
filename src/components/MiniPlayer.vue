@@ -1,9 +1,7 @@
 <template>
   <v-container>
-    {{ musicStore.getCurrentplayingTimer }}
-
     <v-row>
-      <v-col cols="12" style="border: 5px solid #fce4ec">
+      <v-col cols="12" style="border: 5px solid #ff80ab">
         <v-card color="#E3F2FD" outlined elevation="50" hover>
           <!-- <v-card-title>Mini Player</v-card-title> -->
           <v-card-text>
@@ -58,10 +56,11 @@
 
                       <v-spacer></v-spacer>
 
-                      <v-btn icon>
-                        <v-icon @click="favorite" color="red">
-                          mdi-heart
-                        </v-icon>
+                      <v-btn icon v-if="musicStore.isFavorited">
+                        <v-icon color="red"> mdi-heart </v-icon>
+                      </v-btn>
+                      <v-btn icon v-else>
+                        <v-icon @click="favorite"> mdi-heart </v-icon>
                       </v-btn>
                     </v-card-title>
                   </v-col>

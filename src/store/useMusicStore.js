@@ -15,6 +15,13 @@ export const useMusicStore = defineStore("music", {
 
     music: [
       {
+        name: "Reckless Love",
+        artist: "Cory Asbury",
+        source: require("../assets/reckless love.mp3"),
+        favorited: false,
+        image: require("../assets/loj.jpg"),
+      },
+      {
         name: "Tasha cobbs",
         artist: "Your Spirit",
 
@@ -45,7 +52,7 @@ export const useMusicStore = defineStore("music", {
         artist: "Hillsong",
         source: require("../assets/I Surrender .mp3"),
 
-        favorited: false,
+        favorited: true,
 
         image: require("../assets/cross.jpg"),
       },
@@ -168,12 +175,10 @@ export const useMusicStore = defineStore("music", {
       this.isPlaying = true;
     },
 
-    //favorite a song
-    favoriteSong(song) {
-      song.favorited = !song.favorited;
-      console.log(song.favorited);
+    //change the currentsong favorited status to true
+    favoriteSong() {
+      this.currentSong.favorited = true;
     },
-
     //shaffle the music
     shuffleMusic() {
       this.music.sort(() => Math.random() - 0.5);
@@ -198,6 +203,13 @@ export const useMusicStore = defineStore("music", {
     },
 
     getMusic: (state) => state.music,
+
+    //check if the current song is favorited
+    isFavorited: (state) => {
+      if (state.currentSong) {
+        return state.currentSong.favorited;
+      }
+    },
 
     getCurrentSong: (state) => state.currentSong || state.music[0], // if currentSong is null, return the first song in the music array
   },
