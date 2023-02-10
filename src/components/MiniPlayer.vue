@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" style="border: 5px solid #ff80ab">
-        <v-card color="#E3F2FD" outlined elevation="50" hover>
+        <v-card color="#C5CAE9" outlined elevation="50" hover>
           <!-- <v-card-title>Mini Player</v-card-title> -->
           <v-card-text>
             <v-row>
