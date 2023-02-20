@@ -11,7 +11,9 @@ export const useMusicStore = defineStore("music", {
     currentSong: null,
     player: new Audio(),
     currentlyTimer: "00:00",
-    volume: 100,
+    volume: 30,
+    snackbarText: " increasing the volume might cause damage to your ears",
+    snackbar: false,
 
     music: [
       {
@@ -140,6 +142,9 @@ export const useMusicStore = defineStore("music", {
       this.audio.play();
       this.isPlaying = true;
       this.listenersWhenPlaying();
+      //volume = 30;
+
+      this.audio.volume = this.volume / 100;
     },
 
     pauseMusic() {
@@ -183,6 +188,15 @@ export const useMusicStore = defineStore("music", {
     shuffleMusic() {
       this.music.sort(() => Math.random() - 0.5);
     },
+    musicvolume() {
+      this.audio.volume = this.volume / 100;
+    },
+    repeatCurentSong() {
+      this.audio.loop = true;
+    },
+    repeatAllSongs() {
+      this.audio.loop = true;
+    },
   },
   getters: {
     //getthe time in minutes and seconds of the onplay song
@@ -212,5 +226,30 @@ export const useMusicStore = defineStore("music", {
     },
 
     getCurrentSong: (state) => state.currentSong || state.music[0], // if currentSong is null, return the first song in the music array
+
+    setSnakcbarTrue: (state) => {
+      state.snackbar = true;
+    },
+
+    //if volume == 50% open the snackbar
+    opentheSnackbarwhenVolumeis50() {
+      if (this.volume == 50) {
+        this.setSnakcbarTrue;
+      }
+    },
+
+    //currenttime of the song
+    getCurrentTime: (state) => {
+      if (state.audio) {
+        return state.audio.currentTime;
+      }
+    },
+
+    //get current song duration
+    getDuration: (state) => {
+      if (state.currentSong) {
+        return state.currentSong.duration;
+      }
+    },
   },
 });

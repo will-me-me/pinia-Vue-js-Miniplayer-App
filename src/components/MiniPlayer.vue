@@ -69,21 +69,44 @@
                       {{ musicStore.getCurrentSong.name }} - 🎵
                     </v-card-subtitle>
 
-                    <!-- end
-                    {{ musicStore.getCurrentlyTimer }}
+                    <v-row>
+                      <v-col cols="2">
+                        <v-slider
+                          v-model="musicStore.volume"
+                          :max="100"
+                          :min="0"
+                          step="1"
+                          thumb-label
+                          thumb-color="primary"
+                          track-color="primary"
+                          @change="musicStore.musicvolume"
+                          prepend-icon="mdi-volume-high"
+                        ></v-slider>
+                        <!-- {{ musicStore.getCurrentlyTimer }}
+                        {{ musicStore.totalTime }}
 
-                    total
-                    {{ musicStore.getDurationMinandSecs }} -->
-                    <!-- <v-slider
-                      v-model="musicStore.getCurrentlyTimer"
-                      :max="musicStore.totalTime"
-                      :min="musicStore.getCurrentlyTimer"
-                      step="1"
-                      thumb-label
-                      thumb-color="primary"
-                      track-color="primary"
-                      @change="musicStore.currentlyTimer"
-                    ></v-slider> -->
+                        <v-progress-linear
+                          :value="musicStore.getCurrentlyTimer"
+                          :max="musicStore.getDuration"
+                          color="primary"
+                          height="10"
+                        ></v-progress-linear> -->
+                      </v-col>
+                    </v-row>
+
+                    {{ musicStore.opentheSnackbarwhenVolumeis50 }}
+                    <v-snackbar v-model="musicStore.snackbar" top shaped dark>
+                      {{ musicStore.snackbarText }}
+                      <template v-slot:action="{ attrs }">
+                        <v-btn
+                          text
+                          v-bind="attrs"
+                          @click="musicStore.snackbar = false"
+                        >
+                          Close
+                        </v-btn>
+                      </template>
+                    </v-snackbar>
                   </v-col>
                 </v-row>
               </v-col>
@@ -136,6 +159,15 @@
                 </v-btn>
               </template>
               <span>shuffle</span>
+            </v-tooltip>
+
+            <v-tooltip bottom color="warning">
+              <template v-slot:activator="{ on }">
+                <v-btn icon v-on="on">
+                  <v-icon @click="repeat">mdi-repeat</v-icon>
+                </v-btn>
+              </template>
+              <span>repeat</span>
             </v-tooltip>
           </v-card-actions>
         </v-card>
@@ -195,6 +227,10 @@ export default {
       musicStore.favoriteSong(song);
     };
 
+    const repeat = () => {
+      musicStore.repeatCurentSong;
+    };
+
     return {
       musicStore,
       shuffle,
@@ -206,6 +242,7 @@ export default {
       previous,
       getAllMusic,
       current,
+      repeat,
     };
   },
 };
